@@ -18,22 +18,7 @@ public class Webcam {
     System.loadLibrary("opencv_java310");
     String OS = System.getProperty("os.name");
     System.out.println("x" + OS + "x");
-/*  //Following lines are an internal activation of the PiCamera module within linux.
-    //Removing this and adding a note above because this is better accomplished through shell scripting
-    if(OS.contains("inu")){
-        System.out.println("Linux");
-        Runtime rt = Runtime.getRuntime();
-        try{
-            Process pr = rt.exec("sudo modprobe bcm2835-v4l2");
-            Process pr = rt.exec("echo Camera Enabled");
-        }catch(IOException f){
-            System.out.println("commandline exception!");
-        }
-    }
-    else{
-        System.out.println("Not Linux?");
-    }
-*/
+
     VideoCapture camera = new VideoCapture(0);
     try{
         Thread.sleep(1500);
@@ -50,21 +35,11 @@ public class Webcam {
 
     Mat frame = new Mat();
 
-    //camera.grab();
-    //System.out.println("Frame Grabbed");
-    //camera.retrieve(frame);
-    //System.out.println("Frame Decoded");
-
     camera.read(frame);
     System.out.println("Frame Obtained");
 
-    /* No difference
-    camera.release();
-    */
-
-    System.out.println("Captured Frame Width " + frame.width());
-
-    Imgcodecs.imwrite("camera.jpg", frame);
-    System.out.println("OK");
+    Pipeline mypipeline = new Pipeline();
+    mypipeline.setsource0(frame);
+    mypipeline.process();
     }
 }
