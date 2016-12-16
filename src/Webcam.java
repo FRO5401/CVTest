@@ -1,17 +1,12 @@
 import org.opencv.core.Mat;
-//import org.opencv.highgui.Highgui;
-//import org.opencv.highgui.VideoCapture;
 import org.opencv.videoio.*;
-import org.opencv.imgcodecs.Imgcodecs;
 //import java.io.IOException;
-
-//Running on Raspberry Pi 3 with Pi Camera module requires adding the camera module to the kernel.
-//This is done with the command $sudo modprobe bcm2835-v4l2
-//Sending this to the command line was removed here because its better done through a shell script than invoking sudo within the code
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Webcam {
+  static NetworkTable myTable;
 
-    public static void main (String args[]){
+  public static void main (String args[]){
 
     System.out.println("Hello, OpenCV");
     // Load the native library.
@@ -41,5 +36,8 @@ public class Webcam {
     Pipeline mypipeline = new Pipeline();
     mypipeline.setsource0(frame);
     mypipeline.process();
+    myTable = NetworkTable.getTable("PipeLineOut");
+    myTable.putNumber("X", 3);
+    myTable.putNumber("Y", 4);
     }
 }
