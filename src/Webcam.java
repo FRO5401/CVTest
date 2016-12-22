@@ -2,7 +2,6 @@ import org.opencv.core.Mat;
 import org.opencv.videoio.*;
 //import java.io.IOException;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
 public class Webcam {
   static NetworkTable myTable;
 
