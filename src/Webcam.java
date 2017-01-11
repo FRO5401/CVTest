@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Webcam {
   static NetworkTable myTable;
+//	NetworkTable myTable;
 
+//  public void main (String args[]){
   public static void main (String args[]){
 
     System.out.println("Hello, OpenCV");
@@ -36,8 +38,8 @@ public class Webcam {
     Pipeline mypipeline = new Pipeline();
     mypipeline.setsource0(frame);
     mypipeline.process();
-    myTable = NetworkTable.getTable("PipeLineOut");
-    myTable.putNumber("X", 3);
-    myTable.putNumber("Y", 4);
+//    myTable = NetworkTable.getTable("PipeLineOut");
+//    myTable.putNumber("X", 3);
+//    myTable.putNumber("Y", 4);
     }
 }
