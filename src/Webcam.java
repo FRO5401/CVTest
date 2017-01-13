@@ -2,10 +2,10 @@ import org.opencv.core.Mat;
 import org.opencv.videoio.*;
 //import java.io.IOException;
 import edu.wpi.first.wpilibj.networktables.*;
+//import edu.wpi.first.wpilibj.tables.*;
 
 public class Webcam {
   static NetworkTable myTable;
-//	NetworkTable myTable;
 
 //  public void main (String args[]){
   public static void main (String args[]){
@@ -17,11 +17,11 @@ public class Webcam {
     System.out.println("x" + OS + "x");
 
     VideoCapture camera = new VideoCapture(0);
-    try{
+/*    try{
         Thread.sleep(1500);
     }catch(InterruptedException e){
         System.out.println("got interrupted!");
-    }
+    }*/
     camera.open(0); //Useless
     if(!camera.isOpened()){
         System.out.println("Camera Error");
@@ -38,7 +38,12 @@ public class Webcam {
     Pipeline mypipeline = new Pipeline();
     mypipeline.setsource0(frame);
     mypipeline.process();
-//    myTable = NetworkTable.getTable("PipeLineOut");
+//    NetworkTable.setClientMode();
+//    NetworkTable.setTeam(5401);
+
+//    NetworkTable.initialize();
+//    NetworkTable publishingTable = NetworkTable.getTable("CameraPublisher");
+    myTable = NetworkTable.getTable("PipeLineOut");
 //    myTable.putNumber("X", 3);
 //    myTable.putNumber("Y", 4);
     }
