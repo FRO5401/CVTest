@@ -38,8 +38,8 @@ public class Webcam {
     Pipeline mypipeline = new Pipeline();
     mypipeline.setsource0(frame);
     mypipeline.process();
-//    NetworkTable.setClientMode();
-//    NetworkTable.setTeam(5401);
+    NetworkTable.setClientMode();
+    NetworkTable.setTeam(5401);
 
 //    NetworkTable.initialize();
 //    NetworkTable publishingTable = NetworkTable.getTable("CameraPublisher");

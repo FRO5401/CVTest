@@ -16,4 +16,12 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>edu.wpi.first.wpilib.networktables.java</groupId>
+  		<artifactId>NetworkTables</artifactId>
+  		<version>3.0.0-SNAPSHOT</version>
+  		<classifier>desktop</classifier>
+  	</dependency>
+  </dependencies>
 </project>
