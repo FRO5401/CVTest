@@ -44,6 +44,11 @@ public class Webcam {
 
 //    NetworkTable publishingTable = NetworkTable.getTable("CameraPublisher");
     myTable = NetworkTable.getTable("PipeLineOut");
+    for(int q=0; (q<5); q++){
+        myTable.putNumber("X", 3);
+        myTable.putNumber("Y", 4);
+    	System.out.println("NT Output");
+    }
     myTable.putNumber("X", 3);
     myTable.putNumber("Y", 4);
     }
