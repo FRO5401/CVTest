@@ -10,9 +10,10 @@ public class Webcam {
 //  public void main (String args[]){
   public static void main (String args[]){
 
+//	NetworkTable.initialize();
 	NetworkTable.setClientMode();
 	NetworkTable.setTeam(5401);
-
+//	NetworkTable.setIPAddress("10.54.01.2"); //SERVER ADDRESS
 	System.out.println("Hello, OpenCV");
     // Load the native library.
     System.loadLibrary("opencv_java310");
@@ -41,15 +42,17 @@ public class Webcam {
     Pipeline mypipeline = new Pipeline();
     mypipeline.setsource0(frame);
     mypipeline.process();
-
-//    NetworkTable publishingTable = NetworkTable.getTable("CameraPublisher");
+    int q;
+    q=0;
     myTable = NetworkTable.getTable("PipeLineOut");
-    for(int q=0; (q<5); q++){
+    while(true){
         myTable.putNumber("X", 3);
         myTable.putNumber("Y", 4);
+        myTable.putNumber("q", q);
     	System.out.println("NT Output");
+    	q++;
     }
-    myTable.putNumber("X", 3);
-    myTable.putNumber("Y", 4);
+//    myTable.putNumber("X", 3);
+//    myTable.putNumber("Y", 4);
     }
 }
