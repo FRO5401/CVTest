@@ -12,8 +12,8 @@ public class Webcam {
 
 //	NetworkTable.initialize();
 	NetworkTable.setClientMode();
-	NetworkTable.setTeam(5401);
-//	NetworkTable.setIPAddress("10.54.01.2"); //SERVER ADDRESS
+//	NetworkTable.setTeam(5401);
+	NetworkTable.setIPAddress("169.254.170.78"); //SERVER ADDRESS
 	System.out.println("Hello, OpenCV");
     // Load the native library.
     System.loadLibrary("opencv_java310");
@@ -49,7 +49,7 @@ public class Webcam {
         myTable.putNumber("X", 3);
         myTable.putNumber("Y", 4);
         myTable.putNumber("q", q);
-    	System.out.println("NT Output");
+    	System.out.print(".");
     	q++;
     }
 //    myTable.putNumber("X", 3);
