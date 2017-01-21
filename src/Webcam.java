@@ -2,6 +2,8 @@ import org.opencv.core.*;//TODO eliminate wildcard imports
 import org.opencv.videoio.*;
 import edu.wpi.first.wpilibj.networktables.*;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
 import java.util.ArrayList;
 
 
@@ -37,7 +39,7 @@ public class Webcam {
     }
     Pipeline mypipeline = new Pipeline();
     Mat frame = new Mat();
-    while(q<25){
+    while(q<2){
 //      camera.read(frame);
       System.out.println("Frame Obtained");
 
@@ -48,9 +50,10 @@ public class Webcam {
       myTable.putNumber("X", output.x);
       myTable.putNumber("Y", output.y);
       System.out.println("Webcam output: " + output);
-      
+      Imgproc.circle(frame, output, 100, new Scalar(0,0,255));
       q++;
     }
+    Imgcodecs.imwrite("camera.jpg", frame);
     System.out.println("Loop complete");
   }
 

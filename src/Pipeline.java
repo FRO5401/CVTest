@@ -274,6 +274,7 @@ public class Pipeline {
 	     */
   }
 
+//http://www.programcreek.com/java-api-examples/index.php?api=org.opencv.imgproc.Moments
   private Point massCenterMatOfPoint2f(MatOfPoint2f map)
   {
   	Moments moments = Imgproc.moments(map);
@@ -284,7 +285,7 @@ public class Pipeline {
   	return centroid;
   }
   
-  //http://www.programcreek.com/java-api-examples/index.php?api=org.opencv.imgproc.Moments
+  
   public void reportCentroid(Point output){
 	    System.out.println("output: " + output);
 	    Webcam.output = output;
