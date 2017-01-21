@@ -1,24 +1,23 @@
-import org.opencv.core.Mat;
+import org.opencv.core.*;//TODO limit import to the commands being used
 import org.opencv.videoio.*;
-//import java.io.IOException;
 import edu.wpi.first.wpilibj.networktables.*;
-//import edu.wpi.first.wpilibj.tables.*;
+import org.opencv.imgcodecs.Imgcodecs;
+import java.util.ArrayList;
+
 
 public class Webcam {
   static NetworkTable myTable;
-
+  static ArrayList<MatOfPoint> frameData;
+  static Object[] output;
 //  public void main (String args[]){
   public static void main (String args[]){
 
-//	NetworkTable.initialize();
 	NetworkTable.setClientMode();
-	NetworkTable.setTeam(5401);
-//	NetworkTable.setIPAddress("10.54.01.2"); //SERVER ADDRESS
+//	NetworkTable.setTeam(5401); //When RoboRIo is the server
+	NetworkTable.setIPAddress("169.254.170.78"); //SERVER ADDRESS
 	System.out.println("Hello, OpenCV");
     // Load the native library.
     System.loadLibrary("opencv_java310");
-    String OS = System.getProperty("os.name");
-    System.out.println("x" + OS + "x");
 
     VideoCapture camera = new VideoCapture(0);
 /*    try{
@@ -38,18 +37,18 @@ public class Webcam {
 
     camera.read(frame);
     System.out.println("Frame Obtained");
+    frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);
 
     Pipeline mypipeline = new Pipeline();
-    mypipeline.setsource0(frame);
-    mypipeline.process();
+//  mypipeline.setsource0(frame); //Changed in GRIP 1.5.1
+  mypipeline.process(frame);
     int q;
     q=0;
     myTable = NetworkTable.getTable("PipeLineOut");
-    while(true){
-        myTable.putNumber("X", 3);
-        myTable.putNumber("Y", 4);
-        myTable.putNumber("q", q);
-    	System.out.println("NT Output");
+    while(q<100){
+    	output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
+        myTable.putString("X", (String) output.toString());
+    	System.out.print(frameData);
     	q++;
     }
 //    myTable.putNumber("X", 3);
