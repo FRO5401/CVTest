@@ -283,6 +283,8 @@ public class Pipeline {
   	System.out.println("centroid: "+ centroid);
   	return centroid;
   }
+  
+  //http://www.programcreek.com/java-api-examples/index.php?api=org.opencv.imgproc.Moments
   public void reportCentroid(Point output){
 	    System.out.println("output: " + output);
 	    Webcam.output = output;

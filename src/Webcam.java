@@ -48,7 +48,7 @@ public class Webcam {
       myTable.putNumber("X", output.x);
       myTable.putNumber("Y", output.y);
       System.out.println("Webcam output: " + output);
-
+      
       q++;
     }
     System.out.println("Loop complete");
