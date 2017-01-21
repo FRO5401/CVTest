@@ -37,20 +37,21 @@ public class Webcam {
     }
     Pipeline mypipeline = new Pipeline();
     Mat frame = new Mat();
-    camera.read(frame);
-    System.out.println("Frame Obtained");
+    while(q<100){
+      camera.read(frame);
+      System.out.println("Frame Obtained");
 
 //    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);//XXX Use full pathname on pi
-    frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);
-    mypipeline.process(frame);
-    while(q<100){
-    	output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
-        myTable.putString("X", (String) output.toString());
-    	System.out.println(frameData);
+//      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
+      mypipeline.process(frame);
+      output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
+      myTable.putString("X", (String) output.toString());
+      System.out.println(frameData);
 
-    	q++;
+      q++;
     }
-    }
+    System.out.println("Loop complete");
+  }
 
   public static int createNetworkTable(String IP, int TEAM){
 	NetworkTable.setClientMode();
