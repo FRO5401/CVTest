@@ -40,9 +40,8 @@ public class Webcam {
     camera.read(frame);
     System.out.println("Frame Obtained");
 
-//    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);
+//    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);//XXX Use full pathname on pi
     frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);
-//  mypipeline.setsource0(frame); //Changed in GRIP 1.5.1
     mypipeline.process(frame);
     while(q<100){
     	output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
@@ -51,8 +50,6 @@ public class Webcam {
 
     	q++;
     }
-//    myTable.putNumber("X", 3);
-//    myTable.putNumber("Y", 4);
     }
 
   public static int createNetworkTable(String IP, int TEAM){
