@@ -21,7 +21,7 @@ import org.opencv.objdetect.*;
 *
 * @author GRIP
 */
-public class Pipeline {
+public class GripPipeline {
 
 	//Outputs
 	private Mat blurOutput = new Mat();
@@ -53,7 +53,7 @@ public class Pipeline {
 		Mat findContoursInput = hsvThresholdOutput;
 		boolean findContoursExternalOnly = false;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
-		reportFilter(findContoursOutput);
+
 	}
 
 	/**
@@ -184,16 +184,7 @@ public class Pipeline {
 		Imgproc.findContours(input, contours, hierarchy, mode, method);
 	}
 
-  public void reportFilter(ArrayList<MatOfPoint> output){
-	    System.out.println(output);
-	    Webcam.frameData = output;
-	    
-	    /*
-	     * Cut and paste at the end of the Pipeline function:
-	     * 		reportFilter(<reportOutput>);  //Replace <reportOutput> with the ArrayList output of the last filter
-	     * Change the name of the class to Pipeline
-	     */
-  }
+
 
 
 }
