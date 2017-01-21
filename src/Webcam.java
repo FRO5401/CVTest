@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Webcam {
   static NetworkTable myTable;
   static ArrayList<MatOfPoint> frameData;
-  static Object[] output;
+  static Point output;
 
 //  public void main (String args[]){
   public static void main (String args[]){
@@ -37,16 +37,17 @@ public class Webcam {
     }
     Pipeline mypipeline = new Pipeline();
     Mat frame = new Mat();
-    while(q<100){
-      camera.read(frame);
+    while(q<25){
+//      camera.read(frame);
       System.out.println("Frame Obtained");
 
 //    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);//XXX Use full pathname on pi
-//      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
+      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
       mypipeline.process(frame);
-      output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
-      myTable.putString("X", (String) output.toString());
-      System.out.println(frameData);
+//      output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
+      myTable.putNumber("X", output.x);
+      myTable.putNumber("Y", output.y);
+      System.out.println("Webcam output: " + output);
 
       q++;
     }
