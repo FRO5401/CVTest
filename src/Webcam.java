@@ -39,6 +39,7 @@ public class Webcam {
     Mat frame = new Mat();
     camera.read(frame);
     System.out.println("Frame Obtained");
+
 //    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);
     frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);
 //  mypipeline.setsource0(frame); //Changed in GRIP 1.5.1
@@ -47,6 +48,7 @@ public class Webcam {
     	output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
         myTable.putString("X", (String) output.toString());
     	System.out.println(frameData);
+
     	q++;
     }
 //    myTable.putNumber("X", 3);
