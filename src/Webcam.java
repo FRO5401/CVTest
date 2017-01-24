@@ -14,7 +14,7 @@ public class Webcam {
 
 //  public void main (String args[]){
   public static void main (String args[]){
-	final String IP = "169.254.170.78";//XXX
+	final String IP = "10.160.129.155";//XXX
 	final int TEAM	= 5401;
 	int q;
     q = createNetworkTable(IP, TEAM);
@@ -50,7 +50,7 @@ public class Webcam {
       myTable.putNumber("X", output.x);
       myTable.putNumber("Y", output.y);
       System.out.println("Webcam output: " + output);
-      Imgproc.circle(frame, output, 100, new Scalar(0,0,255));
+      Imgproc.circle(frame, output, 100, new Scalar(255,0,255), 100);
       q++;
     }
     Imgcodecs.imwrite("camera.jpg", frame);
