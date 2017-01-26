@@ -10,17 +10,17 @@ import java.util.ArrayList;
 public class Webcam {
   static NetworkTable myTable;
   static ArrayList<MatOfPoint> frameData;
-  static Point output;
+  static Rect output;
+  static String tableName = "BoilerPipeLineOut";
 
-//  public void main (String args[]){
   public static void main (String args[]){
 	final String IP = "10.160.129.155";//XXX
 	final int TEAM	= 5401;
 	int q;
     q = createNetworkTable(IP, TEAM);
-	myTable = NetworkTable.getTable("PipeLineOut");
+	myTable = NetworkTable.getTable(tableName);
 
-	System.out.println("Hello, OpenCV");
+//	System.out.println("Hello, OpenCV");
     // Load the native library.
     System.loadLibrary("opencv_java310");
 
@@ -41,16 +41,19 @@ public class Webcam {
     Mat frame = new Mat();
     while(q<2){
 //      camera.read(frame);
-      System.out.println("Frame Obtained");
+//      System.out.println("Frame Obtained");
 
 //    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);//XXX Use full pathname on pi
       frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
       mypipeline.process(frame);
-//      output = frameData.toArray(); //http://docs.opencv.org/java/2.4.8/org/opencv/core/MatOfPoint.html
       myTable.putNumber("X", output.x);
       myTable.putNumber("Y", output.y);
+      myTable.putNumber("height", output.height);
+      myTable.putNumber("width", output.width);
       System.out.println("Webcam output: " + output);
-      Imgproc.circle(frame, output, 100, new Scalar(255,0,255), 100);
+	  double center[] = {(double)(output.x+ output.width/2), (double)(output.y+ output.height/2)};
+	  Point targetCenter = new Point(center);
+      Imgproc.circle(frame, targetCenter, 100, new Scalar(255,0,255), 100);
       q++;
     }
     Imgcodecs.imwrite("camera.jpg", frame);

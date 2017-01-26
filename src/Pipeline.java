@@ -259,48 +259,27 @@ public class Pipeline {
 		}
 	}
 
-  public void reportFilter(ArrayList<MatOfPoint> output){ //XXX May be deprecated, outputs not useful
+    /*
+     * Cut and paste at the end of the Pipeline function:
+     * 		reportFilter(<reportOutput>);  //Replace <reportOutput> with the ArrayList output of the last filter
+     * Change the name of the class to Pipeline
+     */
+
+public void reportFilter(ArrayList<MatOfPoint> output){ //XXX May be deprecated, outputs not useful
 	    System.out.println(output);
-//	    Webcam.frameData = output;
-	    
-	    /*
-	     * Cut and paste at the end of the Pipeline function:
-	     * 		reportFilter(<reportOutput>);  //Replace <reportOutput> with the ArrayList output of the last filter
-	     * Change the name of the class to Pipeline
-	     */
   }
-/*
-//http://www.programcreek.com/java-api-examples/index.php?api=org.opencv.imgproc.Moments
-  private Point massCenterMatOfPoint2f(MatOfPoint2f map)
-  {
-  	Moments moments = Imgproc.moments(map);
-  	Point centroid = new Point();
-  	centroid.x = moments.get_m10() / moments.get_m00();
-  	centroid.y = moments.get_m01() / moments.get_m00();
-  	System.out.println("centroid: "+ centroid);
-  	return centroid;
-  }
-  */
   
-  public void reportCentroid(Point output){
+  public void reportCentroid(Rect output){
 	    System.out.println("output: " + output);
 	    Webcam.output = output;
 	    
-	    /*
-	     * Cut and paste at the end of the Pipeline function:
-	     * 		reportFilter(<reportOutput>);  //Replace <reportOutput> with the ArrayList output of the last filter
-	     * 		massCenterMatOfPoint2f(<reportOutput>);  findContoursOutput.get(0)
-	     * Change the name of the class to Pipeline
-	     */
   }
-  private Point findCenter(MatOfPoint map)
+  private Rect findCenter(MatOfPoint map)
   {
 	  Rect targetRect = Imgproc.boundingRect(map);
-//	  double center[] = {(double) targetRect.x, (double) targetRect.y};
-//	  double center[] = {(double)(targetRect.x+ targetRect.width)/2 + (double) targetRect.x, (double)(targetRect.y+ targetRect.height)/2 + (double) targetRect.y};
-	  double center[] = {(double)(targetRect.x+ targetRect.width/2), (double)(targetRect.y+ targetRect.height/2)};
-	  Point targetCenter = new Point(center);
-	  return targetCenter;
+//	  double center[] = {(double)(targetRect.x+ targetRect.width/2), (double)(targetRect.y+ targetRect.height/2)};
+//	  Point targetCenter = new Point(center);
+	  return targetRect;
   }
 
 }
