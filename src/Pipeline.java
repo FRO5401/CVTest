@@ -69,7 +69,7 @@ public class Pipeline {
 		double filterContoursMinRatio = 0;
 		double filterContoursMaxRatio = 1000;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
-		System.out.println(filterContoursOutput.size()); //XXX
+//		System.out.println(filterContoursOutput.size()); //XXX
 		Webcam.output = findCenter(filterContoursOutput.get(0));
 
 	}

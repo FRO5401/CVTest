@@ -15,7 +15,7 @@ public class Webcam {
 
   public static void main (String args[]){
 	final String IP = "10.160.129.155";//XXX
-	final int TEAM	= 5401;
+	final int TEAM	= 9998;//XXX This is for the Tim radio
 	int q;
     q = createNetworkTable(IP, TEAM);
 	myTable = NetworkTable.getTable(tableName);
@@ -39,13 +39,14 @@ public class Webcam {
     }
     Pipeline mypipeline = new Pipeline();
     Mat frame = new Mat();
-    while(q<2){
+    while(q<10){
 //      camera.read(frame);
 //      System.out.println("Frame Obtained");
 
 //    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);//XXX Use full pathname on pi
       frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
       mypipeline.process(frame);
+      myTable.putNumber("valid", q);
       myTable.putNumber("X", output.x);
       myTable.putNumber("Y", output.y);
       myTable.putNumber("height", output.height);
@@ -63,7 +64,7 @@ public class Webcam {
   public static int createNetworkTable(String IP, int TEAM){
 	NetworkTable.setClientMode();
 	NetworkTable.setTeam(TEAM); //When RoboRIo is the server
-	NetworkTable.setIPAddress(IP); //SERVER ADDRESS
+//	NetworkTable.setIPAddress(IP); //SERVER ADDRESS
 	return 0;
   }
   
