@@ -45,9 +45,9 @@ public class Pipeline {
 
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = blurOutput;
-		double[] hsvThresholdHue = {50.17985611510791, 63.27645051194539};
-		double[] hsvThresholdSaturation = {29.81115107913669, 83.11433447098975};
-		double[] hsvThresholdValue = {105.48561151079136, 157.0904436860068};
+		double[] hsvThresholdHue = {84.17266187050359, 107.81569965870308};
+		double[] hsvThresholdSaturation = {128.41726618705036, 176.67235494880546};
+		double[] hsvThresholdValue = {22.93165467625899, 128.80546075085323};
 		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
 		// Step Find_Contours0:
@@ -57,21 +57,26 @@ public class Pipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 8196.0;
-		double filterContoursMinPerimeter = 0;
-		double filterContoursMinWidth = 0;
-		double filterContoursMaxWidth = 1000;
-		double filterContoursMinHeight = 0;
-		double filterContoursMaxHeight = 1000;
+		double filterContoursMinArea = 1024.0;
+		double filterContoursMinPerimeter = 0.0;
+		double filterContoursMinWidth = 0.0;
+		double filterContoursMaxWidth = 1000.0;
+		double filterContoursMinHeight = 0.0;
+		double filterContoursMaxHeight = 1000.0;
 		double[] filterContoursSolidity = {0, 100};
-		double filterContoursMaxVertices = 1000000;
-		double filterContoursMinVertices = 0;
-		double filterContoursMinRatio = 0;
-		double filterContoursMaxRatio = 1000;
+		double filterContoursMaxVertices = 1000000.0;
+		double filterContoursMinVertices = 0.0;
+		double filterContoursMinRatio = 0.0;
+		double filterContoursMaxRatio = 1000.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
-//		System.out.println(filterContoursOutput.size()); //XXX
-		Webcam.output = findCenter(filterContoursOutput.get(0));
-
+		//XXX Preserve the following line to paste into GRIP pipeline
+		try {
+			Webcam.output = findRectangle(filterContoursOutput.get(0));
+		} catch(Exception ee)
+			{
+	    	System.out.println("No Contours");
+	    	Webcam.output = new Rect(0,0,0,0);
+			}
 	}
 
 	/**
@@ -269,16 +274,9 @@ public void reportFilter(ArrayList<MatOfPoint> output){ //XXX May be deprecated,
 	    System.out.println(output);
   }
   
-  public void reportCentroid(Rect output){
-	    System.out.println("output: " + output);
-	    Webcam.output = output;
-	    
-  }
-  private Rect findCenter(MatOfPoint map)
+  private Rect findRectangle(MatOfPoint map)
   {
 	  Rect targetRect = Imgproc.boundingRect(map);
-//	  double center[] = {(double)(targetRect.x+ targetRect.width/2), (double)(targetRect.y+ targetRect.height/2)};
-//	  Point targetCenter = new Point(center);
 	  return targetRect;
   }
 

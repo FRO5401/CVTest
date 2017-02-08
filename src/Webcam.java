@@ -14,7 +14,7 @@ public class Webcam {
   static String tableName = "BoilerPipeLineOut";
 
   public static void main (String args[]){
-	final String IP = "10.160.129.155";//XXX
+	final String IP = "10.99.98.105";//XXX
 	final int TEAM	= 9998;//XXX This is for the Tim radio
 	int q;
     q = createNetworkTable(IP, TEAM);
@@ -39,32 +39,45 @@ public class Webcam {
     }
     Pipeline mypipeline = new Pipeline();
     Mat frame = new Mat();
-    while(q<10){
-//      camera.read(frame);
-//      System.out.println("Frame Obtained");
-
-//    frame = Imgcodecs.imread("/home/pi/vision/RetroflectiveTapeSample.jpg",-1);//XXX Use full pathname on pi
-      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
+    boolean valid = false;
+    while(q<1000){
+      camera.read(frame);
+      System.out.println("Frame Obtained");
+//      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
       mypipeline.process(frame);
-      myTable.putNumber("valid", q);
-      myTable.putNumber("X", output.x);
-      myTable.putNumber("Y", output.y);
-      myTable.putNumber("height", output.height);
-      myTable.putNumber("width", output.width);
-      System.out.println("Webcam output: " + output);
-	  double center[] = {(double)(output.x+ output.width/2), (double)(output.y+ output.height/2)};
-	  Point targetCenter = new Point(center);
-      Imgproc.circle(frame, targetCenter, 100, new Scalar(255,0,255), 100);
+      try {
+    	  if(output.area() > 0) {
+    		  valid = true;
+    	  } else valid = false;
+      }catch(Exception eNoOutput){
+  	    	System.out.println("No target");
+  	    	valid = false;
+    	  }
+      if (valid){
+          myTable.putNumber("q", q);
+          myTable.putBoolean("valid", valid);
+          myTable.putNumber("X", output.x);
+          myTable.putNumber("Y", output.y);
+          myTable.putNumber("height", output.height);
+          myTable.putNumber("width", output.width);
+          System.out.println("Webcam output: " + output);
+      } else {
+          myTable.putNumber("valid", q);
+          myTable.putNumber("X", -99);
+          myTable.putNumber("Y", -99);
+          myTable.putNumber("height", -99);
+          myTable.putNumber("width", -99);
+      }
       q++;
     }
-    Imgcodecs.imwrite("camera.jpg", frame);
+//    Imgcodecs.imwrite("camera.jpg", frame);
     System.out.println("Loop complete");
   }
 
   public static int createNetworkTable(String IP, int TEAM){
 	NetworkTable.setClientMode();
-	NetworkTable.setTeam(TEAM); //When RoboRIo is the server
-//	NetworkTable.setIPAddress(IP); //SERVER ADDRESS
+//	NetworkTable.setTeam(TEAM); //When RoboRIo is the server
+	NetworkTable.setIPAddress(IP); //SERVER ADDRESS
 	return 0;
   }
   
