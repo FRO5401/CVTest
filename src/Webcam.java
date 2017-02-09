@@ -9,9 +9,11 @@ import java.util.ArrayList;
 
 public class Webcam {
   static NetworkTable myTable;
+  static NetworkTable inCommand;
   static ArrayList<MatOfPoint> frameData;
   static Rect output;
   static String tableName = "BoilerPipeLineOut";
+  static String commandName = "BoilerCommands";
 
   public static void main (String args[]){
 	final String IP = "10.99.98.105";//XXX
@@ -19,7 +21,7 @@ public class Webcam {
 	int q;
     q = createNetworkTable(IP, TEAM);
 	myTable = NetworkTable.getTable(tableName);
-
+	inCommand = NetworkTable.getTable(commandName);
 //	System.out.println("Hello, OpenCV");
     // Load the native library.
     System.loadLibrary("opencv_java310");
@@ -40,7 +42,8 @@ public class Webcam {
     Pipeline mypipeline = new Pipeline();
     Mat frame = new Mat();
     boolean valid = false;
-    while(q<1000){
+    boolean stopCmd = false;
+    while(!stopCmd){
       camera.read(frame);
       System.out.println("Frame Obtained");
 //      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
@@ -53,22 +56,28 @@ public class Webcam {
   	    	System.out.println("No target");
   	    	valid = false;
     	  }
+      myTable.putBoolean("valid", valid);
       if (valid){
           myTable.putNumber("q", q);
-          myTable.putBoolean("valid", valid);
           myTable.putNumber("X", output.x);
           myTable.putNumber("Y", output.y);
           myTable.putNumber("height", output.height);
           myTable.putNumber("width", output.width);
+          System.out.println("q " + q);
           System.out.println("Webcam output: " + output);
       } else {
-          myTable.putNumber("valid", q);
           myTable.putNumber("X", -99);
           myTable.putNumber("Y", -99);
           myTable.putNumber("height", -99);
           myTable.putNumber("width", -99);
+          System.out.println("q " + q);
+          System.out.println("Webcam output: " + output);
+      } 
+      stopCmd = inCommand.getBoolean("Cmd", false);
+      q++;    	  
+      if (q > 1000) {
+    	  stopCmd = true;
       }
-      q++;
     }
 //    Imgcodecs.imwrite("camera.jpg", frame);
     System.out.println("Loop complete");
