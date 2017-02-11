@@ -11,7 +11,7 @@
         <value>BOX</value>
       </grip:Input>
       <grip:Input step="0" socket="2">
-        <value>0.0</value>
+        <value>8.108108108108105</value>
       </grip:Input>
       <grip:Output step="0" socket="0" previewed="true"/>
     </grip:Step>
@@ -19,8 +19,8 @@
       <grip:Input step="1" socket="0"/>
       <grip:Input step="1" socket="1">
         <value>
-          <double>50.17985611510791</double>
-          <double>63.27645051194539</double>
+          <double>30.755395683453237</double>
+          <double>69.41979522184302</double>
         </value>
       </grip:Input>
       <grip:Input step="1" socket="2">
@@ -91,8 +91,12 @@
       <grip:Input step="0" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="true"/>
-      <grip:Input step="1" socket="0"/>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="true"/>
+      <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="1" socket="0" previewed="true"/>
@@ -116,7 +120,7 @@
     <language>Java</language>
     <className>GripPipeline</className>
     <implementWpilibPipeline>false</implementWpilibPipeline>
-    <saveDir>C:\Users\Kevin\GRIP</saveDir>
+    <saveDir>C:\Users\Kevin\workspace\Pulsatrix</saveDir>
     <packageName></packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>
