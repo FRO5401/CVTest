@@ -45,9 +45,9 @@ public class Pipeline {
 
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = blurOutput;
-		double[] hsvThresholdHue = {84.17266187050359, 107.81569965870308};
-		double[] hsvThresholdSaturation = {128.41726618705036, 176.67235494880546};
-		double[] hsvThresholdValue = {22.93165467625899, 128.80546075085323};
+		double[] hsvThresholdHue = {0.0, 24.880546075085324};
+		double[] hsvThresholdSaturation = {204.09172661870505, 255.0};
+		double[] hsvThresholdValue = {22.93165467625899, 255.0};
 		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
 		// Step Find_Contours0:
@@ -77,6 +77,7 @@ public class Pipeline {
 	    	System.out.println("No Contours");
 	    	Webcam.output = new Rect(0,0,0,0);
 			}
+		//XXX Paste into GRIP pipeline
 	}
 
 	/**

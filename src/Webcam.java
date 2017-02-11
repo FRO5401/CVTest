@@ -18,8 +18,8 @@ public class Webcam {
   public static void main (String args[]){
 	final String IP = "10.99.98.105";//XXX
 	final int TEAM	= 9998;//XXX This is for the Tim radio
-	int q;
-    q = createNetworkTable(IP, TEAM);
+	int q = 0;
+    int z = createNetworkTable(IP, TEAM);
 	myTable = NetworkTable.getTable(tableName);
 	inCommand = NetworkTable.getTable(commandName);
 //	System.out.println("Hello, OpenCV");
