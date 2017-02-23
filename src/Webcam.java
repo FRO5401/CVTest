@@ -46,8 +46,9 @@ public class Webcam {
     while(!stopCmd){
       camera.read(frame);
       System.out.println("Frame Obtained");
+      Mat frame2 = frame.clone();
 //      frame = Imgcodecs.imread("RetroflectiveTapeSample.jpg",-1);				//XXX Use for windows test
-      mypipeline.process(frame);
+      mypipeline.process(frame, frame2);//XXX Subtractive filter uses 2 cam soures, must pass the image twice
       try {
     	  if(output.area() > 0) {
     		  valid = true;
@@ -75,7 +76,7 @@ public class Webcam {
       } 
       stopCmd = inCommand.getBoolean("Cmd", false);
       q++;    	  
-      if (q > 1000) {
+      if (q > 1) {
     	  stopCmd = true;
       }
     }
