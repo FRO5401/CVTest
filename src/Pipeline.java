@@ -68,13 +68,13 @@ public class Pipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 2400.0;
+		double filterContoursMinArea = 600.0;
 		double filterContoursMinPerimeter = 0;
 		double filterContoursMinWidth = 0;
 		double filterContoursMaxWidth = 1000;
 		double filterContoursMinHeight = 0;
 		double filterContoursMaxHeight = 1000;
-		double[] filterContoursSolidity = {0, 100};
+		double[] filterContoursSolidity = {75, 100};
 		double filterContoursMaxVertices = 1000000;
 		double filterContoursMinVertices = 0;
 		double filterContoursMinRatio = 0;
@@ -160,7 +160,6 @@ public class Pipeline {
 	 */
 	private void cvSubtract(Mat src1, Mat src2, Mat out) {
 		Core.subtract(src1, src2, out);
-	    Imgcodecs.imwrite("cvSubtractOut.jpg", out);
 
 	}
 
@@ -175,6 +174,8 @@ public class Pipeline {
 	private void cvThreshold(Mat src, double threshold, double maxVal, int type,
 		Mat dst) {
 		Imgproc.threshold(src, dst, threshold, maxVal, type);
+//	    Imgcodecs.imwrite("threshold.jpg", dst); //debugging tool
+
 	}
 
 	/**
@@ -197,6 +198,7 @@ public class Pipeline {
 		}
 		int method = Imgproc.CHAIN_APPROX_SIMPLE;
 		Imgproc.findContours(input, contours, hierarchy, mode, method);
+
 	}
 
 
@@ -223,29 +225,32 @@ public class Pipeline {
 		final MatOfInt hull = new MatOfInt();
 		output.clear();
 		//operation
+//        System.out.println("Unfiltered Contours "+inputContours.size()); //Debugging tool
 		for (int i = 0; i < inputContours.size(); i++) {
 			final MatOfPoint contour = inputContours.get(i);
 			final Rect bb = Imgproc.boundingRect(contour);
-			if (bb.width < minWidth || bb.width > maxWidth) continue;
-			if (bb.height < minHeight || bb.height > maxHeight) continue;
+//			if (bb.width < minWidth || bb.width > maxWidth) continue;
+//			if (bb.height < minHeight || bb.height > maxHeight) continue;
 			final double area = Imgproc.contourArea(contour);
 			if (area < minArea) continue;
-			if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter) continue;
-			Imgproc.convexHull(contour, hull);
-			MatOfPoint mopHull = new MatOfPoint();
-			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-			for (int j = 0; j < hull.size().height; j++) {
-				int index = (int)hull.get(j, 0)[0];
-				double[] point = new double[] { contour.get(index, 0)[0], contour.get(index, 0)[1]};
-				mopHull.put(j, 0, point);
-			}
-			final double solid = 100 * area / Imgproc.contourArea(mopHull);
-			if (solid < solidity[0] || solid > solidity[1]) continue;
-			if (contour.rows() < minVertexCount || contour.rows() > maxVertexCount)	continue;
-			final double ratio = bb.width / (double)bb.height;
-			if (ratio < minRatio || ratio > maxRatio) continue;
+//			if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter) continue;
+//			Imgproc.convexHull(contour, hull);
+//			MatOfPoint mopHull = new MatOfPoint();
+//			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
+//			for (int j = 0; j < hull.size().height; j++) {
+//				int index = (int)hull.get(j, 0)[0];
+//				double[] point = new double[] { contour.get(index, 0)[0], contour.get(index, 0)[1]};
+//				mopHull.put(j, 0, point);
+//			}
+//			final double solid = 100 * area / Imgproc.contourArea(mopHull);
+//			if (solid < solidity[0] || solid > solidity[1]) continue;
+//			if (contour.rows() < minVertexCount || contour.rows() > maxVertexCount)	continue;
+//			final double ratio = bb.width / (double)bb.height;
+//			if (ratio < minRatio || ratio > maxRatio) continue;
 			output.add(contour);
 		}
+//        System.out.println("Filtered Contours "+ output.size()); //debugging tool
+
 	}
 
 	public void reportFilter(ArrayList<MatOfPoint> output){ //XXX May be deprecated, outputs not useful

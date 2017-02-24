@@ -76,9 +76,15 @@ public class Webcam {
       } 
       stopCmd = inCommand.getBoolean("Cmd", false);
       q++;    	  
-      if (q > 1) {
+      if (q > 100) {
     	  stopCmd = true;
       }
+      try{
+      Thread.sleep(100);
+  }catch(InterruptedException e){
+      System.out.println("got interrupted!");
+  }
+
     }
 //    Imgcodecs.imwrite("camera.jpg", frame);
     System.out.println("Loop complete");
