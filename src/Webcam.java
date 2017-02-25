@@ -21,7 +21,7 @@ public class Webcam {
 	int q = 0;
     int z = createNetworkTable(IP, TEAM);
 	myTable = NetworkTable.getTable(tableName);
-	inCommand = NetworkTable.getTable(commandName);
+//	inCommand = NetworkTable.getTable(commandName);
 //	System.out.println("Hello, OpenCV");
     // Load the native library.
     System.loadLibrary("opencv_java310");
@@ -74,9 +74,9 @@ public class Webcam {
           System.out.println("q " + q);
           System.out.println("Webcam output: " + output);
       } 
-      stopCmd = inCommand.getBoolean("Cmd", false);
+//      stopCmd = inCommand.getBoolean("Cmd", false);
       q++;    	  
-      if (q > 100) {
+      if (q > 500) {
     	  stopCmd = true;
       }
       try{
